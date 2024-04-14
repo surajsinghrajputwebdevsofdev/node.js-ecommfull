@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #4b4b4b;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 99;
+      background-color: #ff4757;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .box {
+      color: white;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      background-color: #2f3542;
+      top: -5px;
+      right: 0;
+      padding: 3px;
+      height: 20px;
+      width: 20px;
+      line-height: 20px;
+      border-radius: 50%;
+      z-index: 99;
+    }
+
+    #cart-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding-top: 10px;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1200px;
+      padding: 4rem;
+      margin: auto;
+      width: 100%;
+    }
+
+    h2.title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      color: #ffffff;
+    }
+
+    .shop-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, auto));
+      gap: 1.5rem;
+      justify-content: center;
+      align-content: center;
+    }
+
+    .productData-box {
+      position: relative;
+      background-color: #fff;
+      padding: 10px;
+      box-shadow: 0 1px 4px rgba(40, 37, 37, 0.1);
+      border-radius: 3px;
+    }
+
+    .pic {
+      overflow: hidden;
+    }
+
+    .pic:hover img {
+      transform: scale(1.5);
+    }
+
+    .productData-img {
+      transition: 0.4s;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+
+    .productData-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ff6348;
+    }
+
+    .productData-price {
+      font-weight: 500;
+    }
+
+    .add-cart {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background-color: #2ed573;
+      color: white;
+      padding: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
+    .add-cart:hover {
+      background-color: rgba(255, 0, 0, 0.786);
+    }
+
+
+    .cart {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 400px;
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 1px 4px rgba(40, 37, 37, 0.1);
+      z-index: 100;
+    }
+
+    .cart-active {
+      right: 0;
+      transition: 0.5s;
+    }
+
+    .cart-title {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-box {
+      display: grid;
+      grid-template-columns: 32% 50% 18%;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .cart-img {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      padding: 5px;
+    }
+
+    .detail-box {
+      display: grid;
+      row-gap: 0.5rem;
+    }
+
+    .price-box {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cart-productData-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: #ff6348;
+      font-weight: 500;
+    }
+
+    .cart-price {
+      font-weight: 500;
+    }
+
+    .cart-quantity {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      outline: none;
+      width: 2.4rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .cart-remove {
+      font-size: 24px;
+      color: red;
+      cursor: pointer;
+    }
+
+    .total {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.5rem;
+    }
+
+    .total-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .total-price {
+      margin-left: 0.5rem;
+    }
+
+    .btn-buy {
+      padding: 5px 10px;
+      background-color: #2f3542;
+      color: #fff;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 9px;
+    }
+
+    #cart-close {
+      position: absolute;
+      top: 1rem;
+      right: 0.8rem;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  </style>
+  <script src="https://js.stripe.com/v3/"></script>
+  
+</head>
+
+<body>
+  <header>
+  </header>
+  <div class="container">
+    <h2 class="title">Your Order Information</h2>
+    <div class="shop-content">
+    </div>
+  </div>
+  <script>
+     const stripeInstance = Stripe('pk_test_...');
+    function getAddedProducts() {
+      const addedProductsJSON = localStorage.getItem('addedProducts');
+      return addedProductsJSON ? JSON.parse(addedProductsJSON) : [];
+    }
+
+    function renderAddedProducts() {
+      const shopContent = document.querySelector('.shop-content');
+      const addedProducts = getAddedProducts();
+
+      shopContent.innerHTML = '';
+
+      addedProducts.forEach(product => {
+
+        const productData = document.createElement('div');
+        productData.classList.add('productData-box');
+
+        const pic = document.createElement('div');
+        pic.classList.add('pic');
+
+        const img = document.createElement('img');
+        img.classList.add('productData-img');
+        img.src = product.image;
+
+        const title = document.createElement('h2');
+        title.classList.add('productData-title');
+        title.textContent = product.name;
+
+        const price = document.createElement('span');
+        price.classList.add('productData-price');
+        price.textContent ='₹' +  product.price;
+
+        const qty = document.createElement('span');
+        qty.classList.add('productData-qty');
+        qty.textContent = ' '+'qty:'+ product.qty;
+
+        const gap = document.createElement('span');
+    gap.textContent = '   ';
+
+  
+    const buyButton = document.createElement('button');
+        buyButton.textContent = 'Buy Now';
+        buyButton.classList.add('btn-buy');
+        buyButton.addEventListener('click', function () {
+          buyProduct(product);
+        })
+
+        pic.appendChild(img);
+        productData.appendChild(pic);
+        productData.appendChild(gap);
+        productData.appendChild(title);
+        productData.appendChild(gap);
+        productData.appendChild(price);
+        productData.appendChild(gap);
+        productData.appendChild(qty);
+        productData.appendChild(gap);
+        productData.appendChild(buyButton);
+
+        shopContent.appendChild(productData);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderAddedProducts);
+
+    
+    function buyProduct(product) {
+      fetch(product.productId, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId: product.id }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const priceId = data.priceId;
+            stripeInstance.redirectToCheckout({
+              lineItems: [{ price: priceId, quantity: product.qty }],
+              mode: 'payment',
+              successUrl: 'http://localhost:8081/success',
+              cancelUrl: 'http://localhost:8081/cancel',
+              billingAddressCollection: 'required',
+              clientReferenceId: Math.random().toString(36).substring(7)
+            }).then(function (result) {
+              if (result.error) {
+                console.error(result.error);
+              }
+            });
+          } else {
+            console.error('Failed to retrieve price ID');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+  </script>
+</body>
+
+</html>
